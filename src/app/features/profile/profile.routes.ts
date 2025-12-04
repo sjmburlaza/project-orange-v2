@@ -1,8 +1,19 @@
 import { Routes } from '@angular/router';
-import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 export const PROFILE_ROUTES: Routes = [
-  { path: 'account-settings', component: AccountSettingsComponent },
-  { path: 'orders', component: MyOrdersComponent },
+  { path: '', redirectTo: 'orders', pathMatch: 'full' },
+  {
+    path: 'orders',
+    loadComponent: () =>
+      import('./my-orders/my-orders.component').then(
+        (m) => m.MyOrdersComponent
+      ),
+  },
+  {
+    path: 'account-settings',
+    loadComponent: () =>
+      import('./account-settings/account-settings.component').then(
+        (m) => m.AccountSettingsComponent
+      ),
+  },
 ];

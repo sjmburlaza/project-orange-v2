@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     loadChildren: () =>
       import('./features/home/home.routes').then((m) => m.HOME_ROUTES),
   },
@@ -24,7 +25,7 @@ export const routes: Routes = [
   },
   {
     path: 'checkout',
-    canActivate: [],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/checkout/checkout.routes').then(
         (m) => m.CHECKOUT_ROUTES
@@ -39,7 +40,9 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/profile/profile.routes').then((m) => m.PROFILE_ROUTES),
   },
+  { path: '**', redirectTo: '' },
 ];
