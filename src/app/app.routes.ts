@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/auth/auth.guard';
+import { HomeComponent } from 'src/app/features/home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./features/home/home.routes').then((m) => m.HOME_ROUTES),
+    component: HomeComponent,
   },
   {
     path: 'admin',
