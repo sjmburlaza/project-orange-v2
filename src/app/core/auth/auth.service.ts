@@ -1,20 +1,35 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import {
+  AuthResponse,
+  LoginDto,
+  RegisterDto,
+} from 'src/app/core/auth/auth.models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isLoggedIn = false;
+  private baseUrl = '/api/auth';
 
-  login() {
-    this.isLoggedIn = true;
+  constructor(private http: HttpClient) {}
+
+  login(dto: LoginDto): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, dto);
   }
 
-  logout() {
-    this.isLoggedIn = false;
+  register(dto: RegisterDto): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/register`, dto);
   }
 
-  get authenticated() {
-    return this.isLoggedIn;
+  refresh(refreshToken: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/refresh`, {
+      refreshToken,
+    });
+  }
+
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/logout`, {});
   }
 }
