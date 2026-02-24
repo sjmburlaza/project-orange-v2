@@ -11,8 +11,8 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { MockAuthInterceptor } from 'src/app/core/auth/mock-auth.interceptor';
-import { AuthInterceptor } from 'src/app/core/auth/auth.interceptor';
+import { MockAuthInterceptor } from 'src/app/core/interceptors/mock-auth.interceptor';
+import { AuthInterceptor } from 'src/app/core/interceptors/auth.interceptor';
 import { environment } from 'src/environments/environment';
 
 export const appConfig: ApplicationConfig = {
