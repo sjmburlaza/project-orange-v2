@@ -1,1 +1,10 @@
-<p>select-field works!</p>
+<mat-form-field appearance="outline" [formGroup]="form">
+  <mat-label>{{ field.label }}</mat-label>
+  <mat-select [formControlName]="field.name">
+    @for (option of field.options; track option.label) {
+      <mat-option [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

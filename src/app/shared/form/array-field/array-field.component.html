@@ -1,1 +1,22 @@
-<p>array-field works!</p>
+<div [formGroup]="form">
+  <h3>{{ field.label }}</h3>
+  <div formArrayName="{{ field.name }}">
+    @for (group of array?.controls; track group; let i = $index) {
+      <div [formGroupName]="i">
+        @for (child of field.fields; track child) {
+          <app-field [field]="child"></app-field>
+        }
+        <button
+          mat-button
+          color="warm"
+          (click)="remove.emit({ name: field.name, index: i })"
+        >
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+  <button mat-raised-button color="accent" (click)="add.emit()">
+    Add {{ field.name }}
+  </button>
+</div>

@@ -1,1 +1,7 @@
-<p>shipping works!</p>
+<h2>Shipping Details</h2>
+@if (fields) {
+  <app-dynamic-form
+    [fields]="fields"
+    (submitted)="onSubmit($event)"
+  ></app-dynamic-form>
+}

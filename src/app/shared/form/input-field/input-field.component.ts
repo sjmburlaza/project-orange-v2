@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
 
 @Component({
   selector: 'app-input-field',
-  imports: [],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './input-field.component.html',
   styleUrl: './input-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputFieldComponent {
-
+  @Input() field!: DynamicField;
+  @Input() form!: FormGroup;
 }

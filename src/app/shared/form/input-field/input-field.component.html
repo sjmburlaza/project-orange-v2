@@ -1,1 +1,13 @@
-<p>input-field works!</p>
+<mat-form-field appearance="outline" [formGroup]="form">
+  <mat-label>{{ field.label }}</mat-label>
+  <input
+    matInput
+    [type]="field.type"
+    [formControlName]="field.name"
+    [placeholder]="field.placeholder ?? ''"
+  />
+
+  @if (form.get(field.name)?.invalid) {
+    <mat-error> Invalid {{ field.label }} </mat-error>
+  }
+</mat-form-field>
