@@ -4,19 +4,19 @@
     @for (group of array?.controls; track group; let i = $index) {
       <div [formGroupName]="i">
         @for (child of field.fields; track child) {
-          <app-field [field]="child"></app-field>
+          <app-field [field]="child" [form]="group"></app-field>
         }
-        <button
+        <!-- <button
           mat-button
           color="warm"
           (click)="remove.emit({ name: field.name, index: i })"
         >
           Remove
-        </button>
+        </button> -->
       </div>
     }
   </div>
-  <button mat-raised-button color="accent" (click)="add.emit()">
+  <!-- <button mat-raised-button color="accent" (click)="add.emit()">
     Add {{ field.name }}
-  </button>
+  </button> -->
 </div>

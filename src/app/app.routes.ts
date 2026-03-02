@@ -26,10 +26,11 @@ export const routes: Routes = [
   {
     path: 'checkout',
     // canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./features/checkout/checkout.routes').then(
-        (m) => m.CHECKOUT_ROUTES,
+    loadComponent: () =>
+      import('./features/checkout/checkout/checkout.component').then(
+        (m) => m.CheckoutComponent,
       ),
+    children: [],
   },
   {
     path: 'products',

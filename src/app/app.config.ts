@@ -1,5 +1,7 @@
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -14,6 +16,7 @@ import {
 import { MockAuthInterceptor } from 'src/app/core/interceptors/mock-auth.interceptor';
 import { AuthInterceptor } from 'src/app/core/interceptors/auth.interceptor';
 import { environment } from 'src/environments/environment';
+import { CheckoutConfigService } from 'src/app/features/checkout/checkout-config.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,5 +38,10 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true,
     },
+    CheckoutConfigService,
+    provideAppInitializer(() => {
+      const configService = inject(CheckoutConfigService);
+      return configService.loadCheckoutConfig();
+    }),
   ],
 };

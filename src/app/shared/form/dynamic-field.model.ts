@@ -26,6 +26,5 @@ export interface DynamicField {
   validators?: string[];
   asyncValidators?: string[];
   updateOn?: 'change' | 'blur' | 'submit';
-  hidden?: (formValue: any) => boolean;
   fields?: DynamicField[];
 }

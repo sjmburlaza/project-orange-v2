@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  forwardRef,
   Input,
   Output,
 } from '@angular/core';
@@ -12,7 +13,11 @@ import { MatAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'app-array-field',
-  imports: [ReactiveFormsModule, FieldComponent, MatAnchor],
+  imports: [
+    ReactiveFormsModule,
+    // MatAnchor,
+    forwardRef(() => FieldComponent),
+  ],
   templateUrl: './array-field.component.html',
   styleUrl: './array-field.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

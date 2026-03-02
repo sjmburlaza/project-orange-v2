@@ -1,0 +1,17 @@
+<mat-horizontal-stepper [selectedIndex]="currentIndex">
+  @for (step of steps; track step.id) {
+    <mat-step [label]="step.label">
+      <router-outlet></router-outlet>
+      <div class="step-actions">
+        @if (currentIndex > 0) {
+          <button mat-button (click)="previous()">Back</button>
+        }
+        @if (currentIndex < steps.length - 1) {
+          <button mat-raised-button color="primary" (click)="next()">
+            Next
+          </button>
+        }
+      </div>
+    </mat-step>
+  }
+</mat-horizontal-stepper>
