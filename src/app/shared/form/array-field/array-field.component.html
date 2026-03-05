@@ -4,7 +4,7 @@
     @for (group of array?.controls; track group; let i = $index) {
       <div [formGroupName]="i">
         @for (child of field.fields; track child) {
-          <app-field [field]="child" [form]="group"></app-field>
+          <app-dynamic-field [field]="child" [form]="group"></app-dynamic-field>
         }
         <!-- <button
           mat-button

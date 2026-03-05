@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
-import { FieldComponent } from 'src/app/shared/form/field/field.component';
 import { MatAnchor } from '@angular/material/button';
+import { DynamicFieldComponent } from 'src/app/shared/form/dynamic-field/dynamic-field.component';
 
 @Component({
   selector: 'app-array-field',
   imports: [
     ReactiveFormsModule,
     // MatAnchor,
-    forwardRef(() => FieldComponent),
+    forwardRef(() => DynamicFieldComponent),
   ],
   templateUrl: './array-field.component.html',
   styleUrl: './array-field.component.scss',

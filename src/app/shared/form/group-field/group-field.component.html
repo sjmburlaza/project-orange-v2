@@ -1,0 +1,8 @@
+<div [formGroup]="group" class="form-group">
+  @if (field.label) {
+    <h3>{{ field.label }}</h3>
+  }
+  @for (child of field.fields; track child) {
+    <app-dynamic-field [field]="child" [form]="group"></app-dynamic-field>
+  }
+</div>

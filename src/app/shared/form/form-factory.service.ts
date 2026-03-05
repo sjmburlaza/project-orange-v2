@@ -1,36 +1,38 @@
-import { Injectable } from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { inject, Injectable } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
 import { ValidatorMapperService } from 'src/app/shared/form/validator-mapper.service';
 
 @Injectable({ providedIn: 'root' })
 export class FormFactoryService {
-  constructor(
-    private fb: FormBuilder,
-    private validatorMapper: ValidatorMapperService,
-  ) {}
+  validatorMapper = inject(ValidatorMapperService);
 
-  buildForm(fields: any[]): FormGroup {
+  buildForm(fields: DynamicField[]): FormGroup {
     const group: any = {};
 
     fields.forEach((field) => {
-      if (field.type === 'array') {
-        // FormArray for nested fields
-        group[field.name] = new FormArray([]);
-        // Optionally initialize with one empty group
-        (group[field.name] as FormArray).push(this.buildForm(field.fields));
-      } else {
-        const validators = this.validatorMapper.mapValidators(
-          field.validators || [],
-        );
-        group[field.name] = new FormControl('', validators);
+      const validators = this.validatorMapper.mapValidators(
+        field.validators || [],
+      );
+      const asyncValidators = this.validatorMapper.mapAsyncValidators(
+        field.asyncValidators || [],
+      );
+
+      switch (field.type) {
+        case 'group':
+          group[field.name] = this.buildForm(field.fields || []);
+          break;
+
+        case 'array':
+          const formArray = new FormArray<FormGroup>([]);
+          if (field.fields) {
+            formArray.push(this.buildForm(field.fields));
+          }
+          group[field.name] = formArray;
+          break;
+
+        default:
+          group[field.name] = new FormControl('', validators, asyncValidators);
       }
     });
 

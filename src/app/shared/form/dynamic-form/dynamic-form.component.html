@@ -1,12 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   @for (field of fields; track field.name) {
-    <app-field
+    <app-dynamic-field
       [field]="field"
       [form]="form"
       (addArray)="addArrayItem(field)"
       (removeArray)="removeArrayItem($event.name, $event.index)"
     >
-    </app-field>
+    </app-dynamic-field>
   }
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

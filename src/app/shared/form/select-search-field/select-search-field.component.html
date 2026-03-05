@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ field.label }}</mat-label>
+  <mat-select [formControlName]="field.name">
+    <mat-option>
+      <input
+        matInput
+        placeholder="Search..."
+        (input)="search($event.target.value)"
+      />
+    </mat-option>
+    @for (option of options; track option.value) {
+      <mat-option [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

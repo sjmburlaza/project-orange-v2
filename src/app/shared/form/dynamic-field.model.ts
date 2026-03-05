@@ -1,11 +1,10 @@
-import { AsyncValidatorFn, ValidatorFn } from '@angular/forms';
-
 export type FieldType =
   | 'text'
   | 'email'
   | 'number'
   | 'password'
   | 'select'
+  | 'select-search'
   | 'checkbox'
   | 'textarea'
   | 'array'
@@ -22,7 +21,16 @@ export interface DynamicField {
   label?: string;
   value?: any;
   placeholder?: string;
+
   options?: Option[];
+  optionsApi?: string;
+  dependsOn?: string;
+
+  visibleIf?: {
+    field: string;
+    value: any;
+  };
+
   validators?: string[];
   asyncValidators?: string[];
   updateOn?: 'change' | 'blur' | 'submit';
