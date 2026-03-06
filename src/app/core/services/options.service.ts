@@ -6,6 +6,6 @@ export class OptionsService {
   constructor(private http: HttpClient) {}
 
   getOptions(endpoint: string, params?: any) {
-    return this.http.get<any[]>(endpoint, { params });
+    return this.http.get<any[]>('/api' + endpoint, { params });
   }
 }

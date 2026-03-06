@@ -68,4 +68,12 @@ export class SelectSearchFieldComponent implements OnInit {
         this.options = res;
       });
   }
+
+  onSearchClick(event: Event) {
+    event.stopPropagation();
+  }
+
+  onSearchKeydown(event: KeyboardEvent) {
+    event.stopPropagation();
+  }
 }
