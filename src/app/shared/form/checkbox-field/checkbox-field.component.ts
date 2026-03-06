@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
 
 @Component({
   selector: 'app-checkbox-field',
-  imports: [],
+  imports: [ReactiveFormsModule, MatCheckboxModule],
   templateUrl: './checkbox-field.component.html',
   styleUrl: './checkbox-field.component.scss',
 })
 export class CheckboxFieldComponent {
-
+  @Input() field!: DynamicField;
+  @Input() form!: FormGroup;
 }

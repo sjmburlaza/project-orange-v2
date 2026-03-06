@@ -3,6 +3,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ArrayFieldComponent } from 'src/app/shared/form/array-field/array-field.component';
+import { CheckboxFieldComponent } from 'src/app/shared/form/checkbox-field/checkbox-field.component';
 import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
 import { FieldVisibilityService } from 'src/app/shared/form/field-visibility.service';
 import { GroupFieldComponent } from 'src/app/shared/form/group-field/group-field.component';
@@ -16,6 +17,7 @@ import { SelectSearchFieldComponent } from 'src/app/shared/form/select-search-fi
     InputFieldComponent,
     SelectFieldComponent,
     SelectSearchFieldComponent,
+    CheckboxFieldComponent,
     ArrayFieldComponent,
     GroupFieldComponent,
     AsyncPipe,

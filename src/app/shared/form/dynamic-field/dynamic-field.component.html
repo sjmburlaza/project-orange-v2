@@ -15,6 +15,9 @@
         [form]="form"
       ></app-select-search-field>
     }
+    @case ("checkbox") {
+      <app-checkbox-field [field]="field" [form]="form"></app-checkbox-field>
+    }
     @case ("array") {
       <app-array-field
         [field]="field"
