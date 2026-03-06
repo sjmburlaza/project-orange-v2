@@ -1,7 +1,11 @@
 <mat-horizontal-stepper [selectedIndex]="currentIndex">
   @for (step of steps; track step.id) {
     <mat-step [label]="step.label">
-      <router-outlet></router-outlet>
+      @if (currentStepId === step.id) {
+        <ng-container
+          *ngComponentOutlet="stepComponentMap[step.id]; inputs: { step }"
+        ></ng-container>
+      }
       <div class="step-actions">
         @if (currentIndex > 0) {
           <button mat-button (click)="previous()">Back</button>

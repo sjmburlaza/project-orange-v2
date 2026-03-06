@@ -1,21 +1,19 @@
-<div [formGroup]="form">
-  <mat-form-field appearance="outline">
-    <mat-label>{{ field.label }}</mat-label>
-    <mat-select [formControlName]="field.name">
-      <mat-option>
-        <input
-          matInput
-          placeholder="Search..."
-          (input)="search($event.target.value)"
-          (click)="onSearchClick($event)"
-          (keydown)="onSearchKeydown($event)"
-        />
+<mat-form-field appearance="outline" [formGroup]="form">
+  <mat-label>{{ field.label }}</mat-label>
+  <mat-select [formControlName]="field.name">
+    <mat-option>
+      <input
+        matInput
+        placeholder="Search..."
+        (input)="search($event.target.value)"
+        (click)="onSearchClick($event)"
+        (keydown)="onSearchKeydown($event)"
+      />
+    </mat-option>
+    @for (option of options; track option.value) {
+      <mat-option [value]="option.value">
+        {{ option.label }}
       </mat-option>
-      @for (option of options; track option.value) {
-        <mat-option [value]="option.value">
-          {{ option.label }}
-        </mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-</div>
+    }
+  </mat-select>
+</mat-form-field>

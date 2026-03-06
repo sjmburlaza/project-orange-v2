@@ -1,15 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Type } from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   CheckoutConfigService,
   CheckoutStepConfig,
 } from 'src/app/features/checkout/checkout-config.service';
-import { MatAnchor } from '@angular/material/button';
+import { MatAnchor, MatButtonModule } from '@angular/material/button';
+import { ShippingStepComponent } from 'src/app/features/checkout/shipping-step/shipping-step.component';
+import { PaymentStepComponent } from 'src/app/features/checkout/payment-step/payment-step.component';
+import { CustomerStepComponent } from 'src/app/features/checkout/customer-step/customer-step.component';
+import { CommonModule, NgComponentOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
-  imports: [MatStepperModule, RouterOutlet, MatAnchor],
+  imports: [MatStepperModule, MatAnchor, CommonModule, MatButtonModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
 })
@@ -21,35 +25,59 @@ export class CheckoutComponent implements OnInit {
   steps: CheckoutStepConfig[] = [];
   currentIndex = 0;
 
+  stepComponentMap: Record<string, Type<any>> = {
+    customer: CustomerStepComponent,
+    shipping: ShippingStepComponent,
+    payment: PaymentStepComponent,
+  };
+
   ngOnInit() {
     this.steps = this.checkoutConfig.steps;
 
-    // sync stepper with route
-    this.route.firstChild?.url.subscribe(() => this.updateIndex());
-    this.router.events.subscribe(() => this.updateIndex());
+    // Initialize current step from URL param
+    const stepId = this.route.snapshot.paramMap.get('step');
+    const index = this.steps.findIndex((s) => s.id === stepId);
+    this.currentIndex = index >= 0 ? index : 0;
 
-    // default to first step
-    if (!this.route.firstChild) {
-      this.router.navigate(['/checkout', this.steps[0].id]);
+    // If no param, navigate to first step
+    if (!stepId && this.steps.length > 0) {
+      this.navigateToStep(this.currentIndex);
     }
+
+    // Listen to route param changes (deep-linking)
+    this.route.paramMap.subscribe((params) => {
+      const stepId = params.get('step');
+      const index = this.steps.findIndex((s) => s.id === stepId);
+      if (index >= 0) this.currentIndex = index;
+    });
   }
 
-  updateIndex() {
-    const stepId = this.route.firstChild?.snapshot.url[0]?.path;
-    this.currentIndex = this.steps.findIndex((s) => s.id === stepId);
+  get currentStepId() {
+    return this.steps[this.currentIndex]?.id;
   }
 
-  goToStep(step: CheckoutStepConfig) {
-    this.router.navigate(['/checkout', step.id]);
+  get currentStep() {
+    return this.steps[this.currentIndex];
   }
 
   next() {
-    const nextStep = this.steps[this.currentIndex + 1];
-    if (nextStep) this.goToStep(nextStep);
+    if (this.currentIndex < this.steps.length - 1) {
+      this.currentIndex++;
+      this.navigateToStep(this.currentIndex);
+    }
   }
 
   previous() {
-    const prevStep = this.steps[this.currentIndex - 1];
-    if (prevStep) this.goToStep(prevStep);
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.navigateToStep(this.currentIndex);
+    }
+  }
+
+  navigateToStep(index: number) {
+    const step = this.steps[index];
+    if (step) {
+      this.router.navigate(['checkout', step.id]);
+    }
   }
 }

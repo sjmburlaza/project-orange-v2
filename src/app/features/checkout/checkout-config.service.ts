@@ -33,27 +33,6 @@ export class CheckoutConfigService {
     console.log('response', response);
 
     this.steps = response.steps;
-    this.registerRoutes();
-  }
-
-  registerRoutes() {
-    const stepRoutes = this.steps.map((step) => ({
-      path: step.id,
-      loadComponent: () =>
-        import('./checkout-step/checkout-step.component').then(
-          (m) => m.CheckoutStepComponent,
-        ),
-      data: { stepId: step.id },
-    }));
-
-    const config = this.router.config;
-    const checkoutRoute = config.find((r) => r.path === 'checkout');
-
-    if (checkoutRoute) {
-      checkoutRoute.children = stepRoutes;
-    }
-
-    this.router.resetConfig(config);
   }
 
   getStep(id: string) {
