@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from 'src/app/layout/footer/footer.component';
-import { HeaderComponent } from 'src/app/layout/header/header.component';
-import { SidebarComponent } from 'src/app/layout/sidebar/sidebar.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TranslatePipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected title = 'project-orange-v2';
+export class App implements OnInit {
+  route = inject(ActivatedRoute);
+  router = inject(Router);
+  translate = inject(TranslateService);
+
+  ngOnInit() {
+    this.router.events.subscribe(() => {
+      const lang = this.route.firstChild?.snapshot.paramMap.get('lang');
+      if (lang) {
+        this.translate.use(lang);
+      }
+    });
+  }
 }

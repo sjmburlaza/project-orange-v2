@@ -6,10 +6,10 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import {
   HTTP_INTERCEPTORS,
+  HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
@@ -17,6 +17,8 @@ import { MockAuthInterceptor } from 'src/app/core/interceptors/mock-auth.interce
 import { AuthInterceptor } from 'src/app/core/interceptors/auth.interceptor';
 import { environment } from 'src/environments/environment';
 import { CheckoutConfigService } from 'src/app/features/checkout/checkout-config.service';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { translateLoaderFactory } from 'src/app/core/i18n/translate-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +26,13 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     ...(environment.useMockAuth
       ? [
           {

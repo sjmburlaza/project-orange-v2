@@ -5,9 +5,9 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { SidebarComponent } from 'src/app/layout/sidebar/sidebar.component';
 
 @Component({
-  selector: 'app-main-layout',
-  imports: [HeaderComponent, RouterOutlet, FooterComponent],
-  templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss',
+  selector: 'app-checkout-layout',
+  imports: [HeaderComponent, RouterOutlet, FooterComponent, SidebarComponent],
+  templateUrl: './checkout-layout.component.html',
+  styleUrl: './checkout-layout.component.scss',
 })
-export class MainLayoutComponent {}
+export class CheckoutLayoutComponent {}
