@@ -4,10 +4,12 @@ import { HomeComponent } from 'src/app/features/home/home.component';
 import { MainLayoutComponent } from 'src/app/layout/main-layout/main-layout.component';
 import { AuthLayoutComponent } from 'src/app/layout/auth-layout/auth-layout.component';
 import { CheckoutLayoutComponent } from 'src/app/layout/checkout-layout/checkout-layout.component';
+import { siteGuard } from 'src/app/core/guards/site.guard';
 
 export const routes: Routes = [
   {
-    path: ':lang',
+    path: ':site',
+    canActivate: [siteGuard],
     children: [
       {
         path: '',
@@ -74,6 +76,6 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '', pathMatch: 'full', redirectTo: 'en' },
-  { path: '**', redirectTo: 'en' },
+  { path: '', pathMatch: 'full', redirectTo: 'ph' },
+  { path: '**', redirectTo: 'ph' },
 ];
