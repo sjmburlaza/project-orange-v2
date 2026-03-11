@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [selectedIndex]="currentIndex">
+<mat-stepper orientation="vertical" [selectedIndex]="currentIndex">
   @for (step of steps; track step.id) {
     <mat-step [label]="step.label">
       @if (currentStepId === step.id) {
@@ -18,4 +18,4 @@
       </div>
     </mat-step>
   }
-</mat-horizontal-stepper>
+</mat-stepper>

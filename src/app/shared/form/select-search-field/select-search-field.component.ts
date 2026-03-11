@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +22,7 @@ import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
   ],
   templateUrl: './select-search-field.component.html',
   styleUrl: './select-search-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectSearchFieldComponent implements OnInit {
   optionsService = inject(OptionsService);

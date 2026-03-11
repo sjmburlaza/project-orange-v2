@@ -1,8 +1,12 @@
-<div [formGroup]="group" class="form-group">
-  @if (field.label) {
-    <h3>{{ field.label }}</h3>
-  }
+@if (field.label) {
+  <h3>{{ field.label }}</h3>
+}
+<div [formGroup]="group" class="form-group form-grid">
   @for (child of field.fields; track child) {
-    <app-dynamic-field [field]="child" [form]="group"></app-dynamic-field>
+    <app-dynamic-field
+      [field]="child"
+      [form]="group"
+      [ngClass]="getGridClass(child)"
+    ></app-dynamic-field>
   }
 </div>
