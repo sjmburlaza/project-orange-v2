@@ -1,0 +1,26 @@
+@use 'tokens/tokens' as *;
+
+h3 {
+  font-size: token(font-size, lg);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+}
+
+
+@include respond-up(lg) {
+  .col-lg-12 {
+    grid-column: span 12;
+  }
+
+  .col-lg-6 {
+    grid-column: span 6;
+  }
+
+  .col-lg-4 {
+    grid-column: span 4;
+  }
+}

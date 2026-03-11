@@ -1,0 +1,17 @@
+@use "../tokens/tokens";
+
+@each $key, $value in map-get(tokens.$tokens, spacing) {
+
+  .p-#{$key} {
+    padding: $value;
+  }
+
+  .m-#{$key} {
+    margin: $value;
+  }
+
+  .gap-#{$key} {
+    gap: $value;
+  }
+
+}

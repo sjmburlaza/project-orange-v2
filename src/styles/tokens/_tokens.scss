@@ -1,0 +1,48 @@
+@use "spacing";
+@use "typography";
+@use "radius";
+@use "breakpoints";
+
+$tokens: (
+  spacing: spacing.$spacing,
+  font-size: typography.$font-size,
+  radius: radius.$radius,
+  breakpoints: breakpoints.$breakpoints,
+);
+
+@function token($category, $key) {
+
+  $category-map: map-get($tokens, $category);
+
+  @if $category-map == null {
+    @error "Token category '#{$category}' does not exist.";
+  }
+
+  $value: map-get($category-map, $key);
+
+  @if $value == null {
+    @error "Token '#{$key}' not found in '#{$category}'.";
+  }
+
+  @return $value;
+}
+
+@mixin respond-up($breakpoint) {
+
+  $bp: token(breakpoints, $breakpoint);
+
+  @media (min-width: $bp) {
+    @content;
+  }
+
+}
+
+@mixin respond-down($breakpoint) {
+
+  $bp: token(breakpoints, $breakpoint);
+
+  @media (max-width: calc(#{$bp} - 1px)) {
+    @content;
+  }
+
+}

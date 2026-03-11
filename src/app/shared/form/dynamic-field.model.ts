@@ -35,4 +35,10 @@ export interface DynamicField {
   asyncValidators?: string[];
   updateOn?: 'change' | 'blur' | 'submit';
   fields?: DynamicField[];
+
+  grid?: {
+    mobile?: number;
+    tablet?: number;
+    desktop?: number;
+  };
 }

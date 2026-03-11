@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
@@ -8,6 +8,7 @@ import { DynamicField } from 'src/app/shared/form/dynamic-field.model';
   imports: [ReactiveFormsModule, MatCheckboxModule],
   templateUrl: './checkbox-field.component.html',
   styleUrl: './checkbox-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxFieldComponent {
   @Input() field!: DynamicField;

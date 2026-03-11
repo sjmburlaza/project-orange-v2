@@ -1,8 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
   @for (field of fields; track field.name) {
     <app-dynamic-field
       [field]="field"
       [form]="form"
+      [ngClass]="getGridClass(field)"
       (addArray)="addArrayItem(field)"
       (removeArray)="removeArrayItem($event.name, $event.index)"
     >

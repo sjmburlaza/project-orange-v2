@@ -77,7 +77,9 @@ export class CheckoutComponent implements OnInit {
   navigateToStep(index: number) {
     const step = this.steps[index];
     if (step) {
-      this.router.navigate(['checkout', step.id]);
+      this.router.navigate(['../', step.id], {
+        relativeTo: this.route,
+      });
     }
   }
 }
