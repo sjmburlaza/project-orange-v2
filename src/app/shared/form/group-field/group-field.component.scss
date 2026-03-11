@@ -1,10 +1,17 @@
+@use 'tokens/tokens' as *;
+
+h3 {
+  font-size: token(font-size, lg);
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 24px;
 }
 
-@media (min-width: 1024px) {
+
+@include respond-up(lg) {
   .col-lg-12 {
     grid-column: span 12;
   }
